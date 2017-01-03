@@ -30,4 +30,7 @@ module.exports = function(req, res, next) {
 
   if (!req.auth.password) {
     return next(createError(401, 'requires password'));
-  }
+  };
+  
+  next();
+};

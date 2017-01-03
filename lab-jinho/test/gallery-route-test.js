@@ -24,3 +24,47 @@ const exampleGallery = {
   name: 'test gallery',
   desc: 'test gallery description'
 };
+
+describe('Gallery Routes', function() {
+  afterEach( done => {
+    Promise.all([
+      User.remove({}),
+      Gallery.remove({})
+    ])
+    .then( () => done())
+    .catch(done);
+  });
+
+  describe('POST: /api/gallery', () => {
+    before( done => {
+      new User(exampleUser)
+      .generatePasswordHash(exampleUser.password)
+      .then( user => user.save())
+      .then( user => {
+        this.tempUser = user;
+        return user.generateToken();
+      })
+      .then( token => {
+        this.tempToken = token;
+        done();
+      })
+      .catch(done);
+    });
+
+    it('should return gallery', done => {
+      request.post(`${url}/api/gallery`)
+      .send(exampleGallery)
+      .set({
+        Authorization: `Bearer ${this.tempToken}`
+      })
+      .end((err, res) => {
+        if (err) return done (err);
+        let date = new Date(res.body.created).toString();
+        expect(res.body.name).to.equal(exampleGallery.name);
+        expect(res.body.desc).to.equal(exampleGallery.desc);
+        expect(res.body.userID).to.equal(this.tempUser._id.toString());
+        expect(date).to.not.equal('Invalid Date');
+        done();
+      });
+    });
+  });

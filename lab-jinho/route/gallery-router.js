@@ -25,7 +25,7 @@ galleryRouter.get('/api/gallery/:id', bearerAuth, function(req, res, next) {
   Gallery.findById(req.params.id)
   .then( gallery => {
     if (gallery.userID.toString() !== req.user._id.toString()) {
-      return next(createError(401, 'invalid user');
+      return next(createError(401, 'invalid user'));
     };
     res.json(gallery);
   })

@@ -6,7 +6,7 @@ const debug = require('debug')('cfgram:bearer-auth-middleware');
 
 const User = require('../model/user.js');
 
-module.exports - function(req, res, next) {
+module.exports = function(req, res, next) {
   debug('bearer auth middleware');
 
   var authHeader = req.headers.authorization;

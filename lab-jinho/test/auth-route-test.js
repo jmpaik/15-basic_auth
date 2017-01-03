@@ -41,8 +41,21 @@ describe('Auth Routes', function() {
     });
   });
 
+  describe('invalid POST request', () => {
+
+        it('should return 400 status code for bad request', (done) => {
+          request.post(`${url}/api/signup`)
+          .send({username: 777, password: '', email:''})
+          .end((err, res) => {
+            expect(res.status).to.equal(400);
+            done();
+          });
+        });
+      });
+    });
+
   describe('GET: /api/signin', function() {
-    desccribe('with valid body', function() {
+    describe('with valid body', function() {
       before( done => {
         let user = new User(exampleUser);
         user.generatePasswordHash(exampleUser.password)
@@ -62,13 +75,24 @@ describe('Auth Routes', function() {
 
       it('should return token', done => {
         request.get(`${url}/api/singin`)
-        .auth('exampleuser', '1234')
+        .auth('example user', '1234')
         .end((err, res) => {
           if (err) return done (err);
           expect(res.status).to.equal(200);
           done();
         });
       });
+
+      describe('invalid GET request', () => {
+
+        it('should return 401 status code when user cannot be authenticated', (done) => {
+          request.get(`${url}/api/login`)
+          .auth('example user', '777')
+          .end((err, res) => {
+            expect(res.status).to.equal(401);
+            done();
+          });
+        });
+      });
     });
   });
-});

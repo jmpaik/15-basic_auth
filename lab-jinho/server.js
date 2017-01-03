@@ -2,8 +2,9 @@
 
 const express = require('express');
 const cors = require('cors');
-const dotenv = require('morgan');
-const morgan = require('mongoose');
+const dotenv = require('dotenv');
+const morgan = require('morgan');
+const mongoose = require('mongoose');
 const Promise = require('bluebird');
 const debug = require('debug')('cfgram:server');
 

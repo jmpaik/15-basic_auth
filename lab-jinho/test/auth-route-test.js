@@ -32,7 +32,7 @@ describe('Auth Routes', function() {
         .send(exampleUser)
         .end((err, res) => {
           if (err) return done(err);
-          console.log('\ntoken: ', res.text, '\n');
+          // console.log('\ntoken: ', res.text, '\n');
           expect(res.status).to.equal(200);
           expect(res.text).to.be.a('string');
           done();
@@ -74,7 +74,7 @@ describe('Auth Routes', function() {
       });
 
       it('should return token', done => {
-        request.get(`${url}/api/singin`)
+        request.get(`${url}/api/signin`)
         .auth('example user', '1234')
         .end((err, res) => {
           if (err) return done (err);
@@ -86,7 +86,7 @@ describe('Auth Routes', function() {
       describe('invalid GET request', () => {
 
         it('should return 401 status code when user cannot be authenticated', (done) => {
-          request.get(`${url}/api/login`)
+          request.get(`${url}/api/signin`)
           .auth('example user', '777')
           .end((err, res) => {
             expect(res.status).to.equal(401);

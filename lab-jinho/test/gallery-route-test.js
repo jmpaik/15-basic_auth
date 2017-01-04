@@ -59,11 +59,58 @@ describe('Gallery Routes', function() {
       })
       .end((err, res) => {
         if (err) return done (err);
-        
+
         let date = new Date(res.body.created).toString();
         expect(res.body.name).to.equal(exampleGallery.name);
         expect(res.body.desc).to.equal(exampleGallery.desc);
         expect(res.body.userID).to.equal(this.tempUser._id.toString());
+        expect(date).to.not.equal('Invalid Date');
+        done();
+      });
+    });
+  });
+
+  describe('GET: /api/gallery/:id', () => {
+    before( done => {
+      new User(exampleUser)
+      .generatePasswordHash(exampleUser.password)
+      .then( user => user.save())
+      .then( user => {
+        this.tempUser = user;
+        return user.generateToken();
+      })
+      .then( token => {
+        this.tempToken = token;
+        done();
+      })
+      .catch(done);
+    });
+
+    before( done => {
+      exampleGallery.userID = this.tempUser._id.toString();
+      new Gallery(exampleGallery).save()
+      .then( gallery => {
+        this.tempGallery = gallery;
+        done();
+      })
+      .catch(done);
+    });
+
+    after( () => {
+      delete exampleGallery.userID;
+    });
+
+    it('should return a gallery', done => {
+      request.get(`${url}/api/gallery/${this.tempGallery._id}`)
+      .set({
+        Authorization: `Bearer ${this.tempToken}`
+      })
+      .end((err, res) => {
+        if (err) return done(err);
+        let date = new Date(res.body.created).toString();
+        expect(res.body.name).to.equal(exampleGallery.name);
+        expect(res.body.desc).to.equal(exampleGallery.desc);
+        expect(res.body.userID).to.equal(this.tempUser._id.toString())
         expect(date).to.not.equal('Invalid Date');
         done();
       });

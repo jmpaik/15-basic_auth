@@ -59,29 +59,14 @@ describe('Gallery Routes', function() {
       })
       .end((err, res) => {
         if (err) return done (err);
-        console.log(res.body);
+        
         let date = new Date(res.body.created).toString();
-        console.log(date);
         expect(res.body.name).to.equal(exampleGallery.name);
         expect(res.body.desc).to.equal(exampleGallery.desc);
         expect(res.body.userID).to.equal(this.tempUser._id.toString());
-        console.log(date);
         expect(date).to.not.equal('Invalid Date');
         done();
       });
     });
   });
-
-  describe('GET: /api/gallery/:id', () => {
-    before( done => {
-      new User(exampleUser)
-      .generatePasswordHash(exampleUser.password)
-      .then( user => user.save())
-      .then( user => {
-        this.tempUser = user;
-        return user.generateToken();
-      })
-      .catch(done);
-    });
-  })
 });

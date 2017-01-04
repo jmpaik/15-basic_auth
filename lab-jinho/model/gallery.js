@@ -6,7 +6,7 @@ const Schema = mongoose.Schema;
 const gallerySchema = Schema({
   name: { type: String, required: true },
   desc: { type: String, required: true },
-  created: { type: String, required: true, default: Date.now },
+  created: { type: Date, required: true, default: Date.now },
   userID: { type: Schema.Types.ObjectId, required: true }
 });
 

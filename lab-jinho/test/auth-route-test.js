@@ -4,7 +4,7 @@ const expect = require('chai').expect;
 const request = require('superagent');
 const mongoose = require('mongoose');
 const Promise = require('bluebird');
-const serverToggle = require('./lib/server-toggle.js')
+const serverToggle = require('./lib/server-toggle.js');
 const User = require('../model/user.js');
 
 mongoose.Promise = Promise;
@@ -40,7 +40,6 @@ describe('Auth Routes', function() {
         .send(exampleUser)
         .end((err, res) => {
           if (err) return done(err);
-          // console.log('\ntoken: ', res.text, '\n');
           expect(res.status).to.equal(200);
           expect(res.text).to.be.a('string');
           done();

@@ -5,7 +5,7 @@ const request = require('superagent');
 const mongoose = require('mongoose');
 const Promise = require('bluebird');
 
-const serverToggle = require('./lib/server-toggle.js')
+const serverToggle = require('./lib/server-toggle.js');
 const User = require('../model/user.js');
 const Gallery = require('../model/gallery.js');
 

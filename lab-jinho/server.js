@@ -10,7 +10,7 @@ const debug = require('debug')('cfgram:server');
 
 const picRouter = require('./route/pic-router.js');
 const authRouter = require('./route/auth-router.js');
-const galleryRouter = require('./route/gallery-router.js')
+const galleryRouter = require('./route/gallery-router.js');
 const errors = require('./lib/error-middleware.js');
 
 dotenv.load();

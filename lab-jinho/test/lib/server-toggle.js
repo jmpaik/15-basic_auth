@@ -21,7 +21,7 @@ exports.serverOff = function(server, done) {
     server.close( err => {
       if (err) return done(err);
       server.isRunning = false;
-      debug('server ddown');
+      debug('server down');
       done();
     });
     return;

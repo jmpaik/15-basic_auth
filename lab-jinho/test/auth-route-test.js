@@ -50,16 +50,15 @@ describe('Auth Routes', function() {
 
   describe('invalid POST request', () => {
 
-        it('should return 400 status code for bad request', (done) => {
-          request.post(`${url}/api/signup`)
-          .send({username: 777, password: '', email:''})
-          .end((err, res) => {
-            expect(res.status).to.equal(400);
-            done();
-          });
-        });
+    it('should return 400 status code for bad request', (done) => {
+      request.post(`${url}/api/signup`)
+      .send({username: 777, password: '', email:''})
+      .end((err, res) => {
+        expect(res.status).to.equal(400);
+        done();
       });
     });
+  });
 
   describe('GET: /api/signin', function() {
     describe('with valid body', function() {
@@ -96,10 +95,12 @@ describe('Auth Routes', function() {
           request.get(`${url}/api/signin`)
           .auth('example user', '777')
           .end((err, res) => {
-            expect(res.status).to.equal(401);
+            console.log(err);
+            expect(err.status).to.equal(401);
             done();
           });
         });
       });
     });
   });
+});

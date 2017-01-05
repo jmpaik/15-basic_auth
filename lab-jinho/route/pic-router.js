@@ -46,16 +46,16 @@ picRouter.post('/api/gallery/:galleryID/pic', bearerAuth, upload.single('image')
   let params = {
     ACL: 'public-read',
     Bucket: process.env.AWS_BUCKET,
-    Key: `${req.file.filename}${ext}`
+    Key: `${req.file.filename}${ext}`,
     Body: fs.createReadStream(req.file.path)
-  }
+  };
 
   Gallery.findById(req.params.galleryID)
   .then( () => s3uploadProm(params))
   .then( s3data => {
     del([`${dataDir}/*`]);
     let picData = {
-      name: req.body.name;
+      name: req.body.name,
       desc: req.body.description,
       objectKey: s3data.Key,
       imageURI: s3data.Location,

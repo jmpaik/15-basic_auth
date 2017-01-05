@@ -87,10 +87,9 @@ describe('Pic Routes', function() {
           Authorization: `Bearer ${this.tempToken}`
         })
         .field('name', examplePic.name)
-        .field('description', examplePic.desc)
+        .field('desc', examplePic.desc)
         .attach('image', examplePic.image)
         .end((err, res) => {
-          console.log(err);
           if (err) return done(err);
           expect(res.body.name).to.equal(examplePic.name);
           expect(res.body.desc).to.equal(examplePic.desc);

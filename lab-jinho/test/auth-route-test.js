@@ -95,7 +95,6 @@ describe('Auth Routes', function() {
           request.get(`${url}/api/signin`)
           .auth('example user', '777')
           .end((err, res) => {
-            console.log(err);
             expect(err.status).to.equal(401);
             done();
           });

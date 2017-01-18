@@ -17,7 +17,7 @@ module.exports = function(req, res, next) {
   };
 
   var utf8str = new Buffer(base64str, 'base64').toString();
-  var authArr = utf8str.string(':');
+  var authArr = utf8str.split(':');
 
   req.auth = {
     username: authArr[0],
@@ -31,6 +31,6 @@ module.exports = function(req, res, next) {
   if (!req.auth.password) {
     return next(createError(401, 'requires password'));
   };
-  
+
   next();
 };

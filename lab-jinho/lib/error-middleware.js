@@ -4,6 +4,7 @@ const createError = require('http-errors');
 const debug = require('debug')('cfgram:error-middleware');
 
 module.exports = function(err, req, res, next) {
+  console.log(err);
   debug('error middleware');
 
   console.error('msg:', err.message);
